@@ -35,6 +35,9 @@ public class Main {
                     sb.append(".");
                 } else if (Character.isDigit(sone.charAt(i))) {
                     sb.append(sone.charAt(i));
+                } else if (Character.isUpperCase(sone.charAt(i))) {
+                    sb.append(Character.toUpperCase(sone.charAt(i)));
+
 
             }else
                 sb.append(tahestik.charAt(tahestik.indexOf(sone.charAt(i)) + 1)); //nihutatud positsioon
