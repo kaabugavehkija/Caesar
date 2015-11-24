@@ -1,7 +1,7 @@
 # Caesar
 Java projekt
 i200 projekt M&M's sifreerimine.
-Autorid Mikk Erlenheim ja Mario Mustasaar
+Autorid Mikk Erlenheim ja Mario Mustasaar.
 Projekti idee on luua lahendus, mis sifreeriks ja desifreeriks etteantud teksti Caesari sifri abil (ja võib olla ka Atbashi sifri abil).
 
 Mida tahame teha:
