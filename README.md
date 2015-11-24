@@ -2,7 +2,7 @@
 Java projekt.
 i200 projekt M&M's šifreerimine.
 Autorid Mikk Erlenheim ja Mario Mustasaar.
-Projekti idee on luua lahendus, mis šifreeriks ja dešifreeriks etteantud teksti Caesari šifri abil (ja võib olla ka Atbashi šifri abil).
+Projekti idee on luua lahendus, mis šifreeriks ja dešifreeriks etteantud teksti Caesari šifri abil (ja võib-olla ka Atbashi šifri abil).
 
 Mida tahame teha:
 1) Sisendteksti sisestamine tekstiväljale
