@@ -16,4 +16,4 @@ Heliks võiks olla näiteks Final Countdowni tunnusmeloodia
 8) Kasutajakonto loomine
 9) Kasutajakontoga seotud tegevused
 10) Dünaamilise tabeli tekitamine (ajalugu salvestatatakse tabelisse, mida on kasutajal hiljem võimalik näha)
-11) Kaitse algaja häkkeri vastu ning (kasutajanimi ja parool peavad olema piiratud pikkusega ning kasutajanimi ja parool ei tohi kumbki olla sql injection kood, samuti ei tohi olla sisestav tekst sql injectioni kood)
+11) Kaitse algaja häkkeri vastu (kasutajanimi ja parool peavad olema piiratud pikkusega ning kasutajanimi ja parool ei tohi kumbki olla sql injection kood, samuti ei tohi olla sisestav tekst sql injectioni kood)
