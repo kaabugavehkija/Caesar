@@ -4,6 +4,7 @@ import java.util.Scanner;
  * Created by Mario on 11/21/2015.
  */
 
+import com.sun.xml.internal.fastinfoset.util.CharArray;
 import javafx.beans.property.ListProperty;
 
         import java.io.BufferedReader;
@@ -19,30 +20,20 @@ import javafx.beans.property.ListProperty;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("sone");
+        System.out.println("sisend kasutajalt");
         String sone = sc.nextLine();
-        StringBuilder sb = new StringBuilder(); //strinbuilder
+        Scanner ROT = new Scanner(System.in);
+        System.out.println("Sisesta ROT");
+        int nihe = ROT.nextInt();
 
-        String tahestik = "abcdefghijklmnoprstuvõäöü";
+        String tahestik = "abcdefghijklmnoprstuv????";
+        String sifreeritud =" ";
         for (int i = 0; i < sone.length(); i++) {
-            // System.out.println(sone.length()+" pikkus");
-            tahestik.indexOf(sone.charAt(i)); // sisestuse tähtede algpositsioon tähestikus")
-            if (sone.charAt(i) == ' ') {
-                    sb.append(" ");
-                } else if (sone.charAt(i) == ',') {
-                    sb.append(",");
-                } else if (sone.charAt(i) == '.') {
-                    sb.append(".");
-                } else if (Character.isDigit(sone.charAt(i))) {
-                    sb.append(sone.charAt(i));
-                } else if (Character.isUpperCase(sone.charAt(i))) {
-                    sb.append(Character.toUpperCase(sone.charAt(i)));
-
-
-            }else
-                sb.append(tahestik.charAt(tahestik.indexOf(sone.charAt(i)) + 1)); //nihutatud positsioon
-
-        }
-        System.out.print(sb + " sifreeritud");
-    }
+            int asukohtTahestikus = tahestik.indexOf(sone.charAt(i));
+            int paljuNihutame = (asukohtTahestikus+nihe)%tahestik.length();
+            char uusVaartus = tahestik.charAt(paljuNihutame);
+            sifreeritud+=uusVaartus;
+   }
+        System.out.println(sifreeritud);
+}
 }
