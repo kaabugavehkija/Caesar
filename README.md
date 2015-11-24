@@ -9,7 +9,7 @@ Mida tahame teha:
 2) Šifreeritud tekst tekstiväljale
 3) Sisendteksti failist lugemine
 4) Šifreeritud teksti faili kirjutamine
-5) Rippmenüüst tähestiku (1. Eesti tähestik, 2. Inglise tähestik, 3. Kirillitsa) ja ROTi valimine (võib olla nii negatiivne kui positiivne, = tähestiku pikkus-1)
+5) Rippmenüüst tähestiku (1. Eesti tähestik, 2. Inglise tähestik, 3. Kirillitsa?) ja ROTi valimine (võib olla nii negatiivne kui positiivne, = tähestiku pikkus-1)
 6) Noobli tausta lisamine (näiteks Matrixi waterfall:  http://stackoverflow.com/questions/4710693/java-falling-matrix-code-like-the-movie-continued)
 7) Heli lisamine (Heli tutorial: https://docs.oracle.com/javase/tutorial/sound/, .waw formatiga heli lisamine: Heli lisamine http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java)
 Heliks võiks olla näiteks Final Countdowni tunnusmeloodia
