@@ -8,8 +8,8 @@ import java.util.Scanner;
  */
 public class CaesarSiffer {
 
-    public static String tahestik = "abcdefghijklmnoprstuvı‰ˆ¸";
-    public static String tahestik_suur = "ABCDEFGHIJKLMNOPRSTUV’ƒ÷‹";
+    public static String tahestik = "abcdefghijklmnoprstuv√µ√§√∂√º";
+    public static String tahestik_suur = "ABCDEFGHIJKLMNOPRSTUV√µ√§√∂√º";
 
 
     public static String siffer(String sifreerimiseks, int nihe) {

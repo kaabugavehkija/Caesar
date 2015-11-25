@@ -12,8 +12,8 @@ public class ReadFromFile {
         Scanner sc = new Scanner(System.in);
         //System.out.println("Path");
         //path = sc.nextLine();
-        System.out.println("Nihe");
-        int nihe = sc.nextInt();
+        //System.out.println("Nihe");
+        //int nihe = sc.nextInt();
 
         String filename = "C:/Users/Mario/Desktop/Mario/EIK/Filosoofia/test.txt"; //faili path
 
@@ -23,7 +23,7 @@ public class ReadFromFile {
             BufferedReader bufferedReader = new BufferedReader(fileReader); //fail buffereReaderisse
 
             while ((line = bufferedReader.readLine())!=null){
-                System.out.println(Desifreerimiseks.Desifreerimiseks(line,nihe));
+                System.out.println(line);
             }
             bufferedReader.close(); //sulgeme faili
 
