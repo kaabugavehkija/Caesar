@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -29,16 +32,24 @@ public class CaesarSiffer {
                 sifreeritud += uusVaartus;
             }
 
-        }return sifreeritud;
+        }
+        return sifreeritud;
     }
-    public static String desiffer(String desifreerimiseks, int nihe){
-        String desifreeritud ="";
+
+    public static String desiffer(String desifreerimiseks, int nihe) {
+        String desifreeritud = "";
 
         for (int i = 0; i < desifreerimiseks.length(); i++) {
             int asukohtTahestikus = tahestik.indexOf(desifreerimiseks.charAt(i));
             int asukohtTahestikus_suur = tahestik_suur.indexOf(desifreerimiseks.charAt(i));
-            int paljuNihutame = (asukohtTahestikus + nihe) % tahestik.length();
-            int paljuNihutame_suur = (asukohtTahestikus_suur + nihe) % tahestik.length();
+            int paljuNihutame = (asukohtTahestikus - nihe) % tahestik.length();
+            if (paljuNihutame<0){
+                paljuNihutame = tahestik.length()+paljuNihutame;
+            }
+            int paljuNihutame_suur = (asukohtTahestikus_suur - nihe) % tahestik.length();
+            if (paljuNihutame_suur<0){
+                paljuNihutame_suur = tahestik.length()+paljuNihutame_suur;
+            }
             char uusVaartus = tahestik.charAt(paljuNihutame);
             char uusVaartus_suur = tahestik.charAt(paljuNihutame_suur);
             if (Character.isDigit(desifreerimiseks.charAt(i))) {
@@ -50,12 +61,13 @@ public class CaesarSiffer {
             } else if (Character.isLetter(desifreerimiseks.charAt(i))) {
                 desifreeritud += uusVaartus;
             }
-
-        }return desifreeritud;
+        }
+        return desifreeritud;
     }
+
     public static void main(String[]args){
         Scanner sc=new Scanner(System.in);
-        System.out.println("Kas Sifreerimiseks/desifreerimiseks?");
+        System.out.println("Kas Sifreerimiseks/desifreerimiseks");
         String sone = sc.nextLine();
         if (sone.equals("Sifreerimiseks")){
             System.out.println("tekst sifreerimiseks");
@@ -63,7 +75,7 @@ public class CaesarSiffer {
             System.out.println("Nihe");
             int nihe = sc.nextInt();
             System.out.println(siffer(tekst,nihe));
-        }else if(sone.equals("Desifreerimiseks")){
+        }else if(sone.equals("desifreerimiseks")){
             System.out.println("tekst desifreerimiseks");
             String tekst = sc.nextLine();
             System.out.println("Nihe");
