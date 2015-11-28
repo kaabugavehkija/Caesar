@@ -1,49 +1,50 @@
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.logging.Logger;
 
+import static javafx.scene.text.FontWeight.BOLD;
+
 /**
  * Created by Mario on 11/21/2015.
  */
 
-/**
- * 1. Loo sisse logimise ekraan (ainult visuaal)
- * 2. Määra üks võimalik kasutaja ja parool (andmebaasi veel ei kasuta)
- * 3. Ebaõnnestunud katse näitab kasutajale errorit
- * 4. Õnnestunud katse puhul vaheta pilt uue vastu (kasvõi roheline ring), .
- */
 public class SifFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Lava seadistamine
         VBox layout = new VBox();
         layout.setSpacing(5);
-        Scene scene = new Scene(layout, 600, 600, Color.AQUA);
+        layout.setStyle("-fx-background-color:#336699;;");
+        Scene scene = new Scene(layout, 600, 600);
 
 
         primaryStage.setScene(scene);
-        scene.setFill(Paint.valueOf("AQUA"));
         primaryStage.show();
         //primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         //Visuaalid
         Label ROT = new Label("ROT");
+        ROT.setFont(Font.font(String.valueOf(BOLD), 20));
+        ROT.setTextFill(Paint.valueOf("WHITE"));
         TextField nihe = new TextField();
         Label tekstiVali = new Label("Tekst toores");
+        tekstiVali.setFont(Font.font(String.valueOf(BOLD), 20));
+        tekstiVali.setTextFill(Paint.valueOf("WHITE"));
         TextArea sisestusTekst = new TextArea();
         Label tekstiValiSif = new Label("Tulemus");
+        tekstiValiSif.setFont(Font.font(String.valueOf(BOLD),20));
+        tekstiValiSif.setTextFill(Paint.valueOf("WHITE"));
         TextArea sisestusTekstSif = new TextArea();
         Button sif = new Button("Sifreeri");
         Button desif = new Button("Desifreeri");
@@ -51,12 +52,19 @@ public class SifFX extends Application {
         Button browse = new Button("Vali fail");
         Button salvesta = new Button("Salvesta tulemus faili");
 
+        //choicebox
+        Label ValiNihe = new Label("Vali Nihe");
+        ValiNihe.setAlignment(Pos.CENTER);
+        ValiNihe.setFont(Font.font(String.valueOf(BOLD), 20));
+        ValiNihe.setTextFill(Paint.valueOf("WHITE"));
+        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13));
+        layout.getChildren().add(cb);
+
         FileChooser filechooser =new FileChooser();
 
+        layout.getChildren().addAll (ValiNihe,ROT, nihe, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, sif, desif,clear,browse, salvesta);
 
-        layout.getChildren().addAll (ROT, nihe, tekstiVali, sisestusTekst,tekstiValiSif,sisestusTekstSif, sif, desif,clear,browse, salvesta);
-
-        //mida nupud teevad
+        //nupu tegevus
         sif.setOnAction(event -> {
             String sifreerimiseks = sisestusTekst.getText();
             int rot = Integer.parseInt(nihe.getText());
