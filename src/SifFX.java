@@ -34,10 +34,6 @@ public class SifFX extends Application {
         //primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         //Visuaalid
-        Label ROT = new Label("ROT");
-        ROT.setFont(Font.font(String.valueOf(BOLD), 20));
-        ROT.setTextFill(Paint.valueOf("WHITE"));
-        TextField nihe = new TextField();
         Label tekstiVali = new Label("Tekst toores");
         tekstiVali.setFont(Font.font(String.valueOf(BOLD), 20));
         tekstiVali.setTextFill(Paint.valueOf("WHITE"));
@@ -57,23 +53,26 @@ public class SifFX extends Application {
         ValiNihe.setAlignment(Pos.CENTER);
         ValiNihe.setFont(Font.font(String.valueOf(BOLD), 20));
         ValiNihe.setTextFill(Paint.valueOf("WHITE"));
-        ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13));
+        ChoiceBox<Integer> cb = new ChoiceBox<Integer>(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+        cb.getValue(); //mis on valitud
+        //cb.getSelectionModel().selectedItemProperty().addListener(ObservableValue obs);
         layout.getChildren().add(cb);
+
 
         FileChooser filechooser =new FileChooser();
 
-        layout.getChildren().addAll (ValiNihe,ROT, nihe, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, sif, desif,clear,browse, salvesta);
+        layout.getChildren().addAll (ValiNihe, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, sif, desif,clear,browse, salvesta);
 
         //nupu tegevus
         sif.setOnAction(event -> {
             String sifreerimiseks = sisestusTekst.getText();
-            int rot = Integer.parseInt(nihe.getText());
+            int rot = cb.getValue();
             sisestusTekstSif.appendText(CaesarSiffer.siffer(sifreerimiseks, rot));
 
         });
         desif.setOnAction(event -> {
             String desifreerimiseks = sisestusTekst.getText();
-            int rot = Integer.parseInt(nihe.getText());
+            int rot = cb.getValue();
             sisestusTekstSif.appendText(CaesarSiffer.desiffer(desifreerimiseks, rot));
 
         });
