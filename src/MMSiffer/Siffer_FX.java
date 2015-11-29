@@ -1,3 +1,5 @@
+package MMSiffer;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -23,13 +25,13 @@ import static javafx.scene.text.FontWeight.BOLD;
  * Created by Mario on 11/21/2015.
  */
 
-public class SifFX extends Application {
+public class Siffer_FX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Lava seadistamine
         primaryStage.setTitle("Sifreerija/desifreerija");
         VBox layout = new VBox();
-        
+
         //pealkiri keskele
         Label pealkiri = new Label("Caesar cipher");
         pealkiri.setTextAlignment(TextAlignment.CENTER);
@@ -59,11 +61,13 @@ public class SifFX extends Application {
         Button sif = new Button("Sifreeri");
         Button desif = new Button("Desifreeri");
         Button clear = new Button("Clear tulemus");
+        Button clearSisestus = new Button("Clear tekst");
         Button browse = new Button("Vali fail");
         Button salvesta = new Button("Salvesta tulemus faili");
+
         //paigutame nupud horisontaalselt
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(sif, desif, clear, browse,salvesta);
+        hbox.getChildren().addAll(sif, desif, clear, clearSisestus, browse, salvesta);
         hbox.setSpacing(10);
 
         //choicebox
@@ -86,17 +90,20 @@ public class SifFX extends Application {
         sif.setOnAction(event -> {
             String sifreerimiseks = sisestusTekst.getText();
             int rot = cb.getValue();
-            sisestusTekstSif.appendText(CaesarSiffer.siffer(sifreerimiseks, rot));
+            sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot));
 
         });
         desif.setOnAction(event -> {
             String desifreerimiseks = sisestusTekst.getText();
             int rot = cb.getValue();
-            sisestusTekstSif.appendText(CaesarSiffer.desiffer(desifreerimiseks, rot));
+            sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot));
 
         });
         clear.setOnAction(event -> {
             sisestusTekstSif.clear();
+        });
+        clearSisestus.setOnAction(event -> {
+            sisestusTekst.clear();
         });
         browse.setOnAction(event -> {
             File file = new FileChooser().showOpenDialog(primaryStage);
