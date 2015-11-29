@@ -1,12 +1,16 @@
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -23,11 +27,21 @@ public class SifFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Lava seadistamine
+        primaryStage.setTitle("Sifreerija/desifreerija");
         VBox layout = new VBox();
+        
+        //pealkiri keskele
+        Label pealkiri = new Label("Caesar cipher");
+        pealkiri.setTextAlignment(TextAlignment.CENTER);
+        pealkiri.setFont(Font.font("ARIAL", 30));
+        pealkiri.setTextFill(Paint.valueOf("WHITE"));
+        BorderPane bp = new BorderPane();
+        bp.setCenter(pealkiri);
+        layout.getChildren().add(bp);
+
         layout.setSpacing(5);
         layout.setStyle("-fx-background-color:#336699;;");
         Scene scene = new Scene(layout, 600, 600);
-
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -47,21 +61,26 @@ public class SifFX extends Application {
         Button clear = new Button("Clear tulemus");
         Button browse = new Button("Vali fail");
         Button salvesta = new Button("Salvesta tulemus faili");
+        //paigutame nupud horisontaalselt
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(sif, desif, clear, browse,salvesta);
+        hbox.setSpacing(10);
 
         //choicebox
         Label ValiNihe = new Label("Vali Nihe");
-        ValiNihe.setAlignment(Pos.CENTER);
         ValiNihe.setFont(Font.font(String.valueOf(BOLD), 20));
         ValiNihe.setTextFill(Paint.valueOf("WHITE"));
         ChoiceBox<Integer> cb = new ChoiceBox<Integer>(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
-        cb.getValue(); //mis on valitud
-        //cb.getSelectionModel().selectedItemProperty().addListener(ObservableValue obs);
+        cb.getValue(); //choiceboxi vaartus
+        //paigutame choiceboxi horisontaalselt
         layout.getChildren().add(cb);
-
+        HBox choice = new HBox();
+        choice.setSpacing(10);
+        choice.getChildren().addAll(ValiNihe, cb);
 
         FileChooser filechooser =new FileChooser();
 
-        layout.getChildren().addAll (ValiNihe, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, sif, desif,clear,browse, salvesta);
+        layout.getChildren().addAll (choice, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, hbox);
 
         //nupu tegevus
         sif.setOnAction(event -> {
