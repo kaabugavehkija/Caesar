@@ -1,12 +1,9 @@
-package MMSiffer;
+package src.MMSiffer;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -43,17 +40,24 @@ public class Siffer_FX extends Application {
 
         layout.setSpacing(5);
         layout.setStyle("-fx-background-color:#336699;;");
-        Scene scene = new Scene(layout, 600, 600);
+        Scene scene = new Scene(layout, 750, 650);
 
         primaryStage.setScene(scene);
         primaryStage.show();
         //primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         //Visuaalid
+        VBox keha = new VBox();
+        Label alphabet = new Label("Alphabet");
+        TextField alphabetTekst = new TextField();
+        alphabet.setFont(Font.font(String.valueOf(BOLD), 20));
+        alphabet.setTextFill(Paint.valueOf("WHITE"));
+
         Label tekstiVali = new Label("Tekst toores");
         tekstiVali.setFont(Font.font(String.valueOf(BOLD), 20));
         tekstiVali.setTextFill(Paint.valueOf("WHITE"));
         TextArea sisestusTekst = new TextArea();
+
         Label tekstiValiSif = new Label("Tulemus");
         tekstiValiSif.setFont(Font.font(String.valueOf(BOLD),20));
         tekstiValiSif.setTextFill(Paint.valueOf("WHITE"));
@@ -64,6 +68,8 @@ public class Siffer_FX extends Application {
         Button clearSisestus = new Button("Clear tekst");
         Button browse = new Button("Vali fail");
         Button salvesta = new Button("Salvesta tulemus faili");
+        //keha paigutus
+        keha.getChildren().addAll(alphabet, alphabetTekst, tekstiVali, sisestusTekst, tekstiValiSif, sisestusTekstSif);
 
         //paigutame nupud horisontaalselt
         HBox hbox = new HBox();
@@ -75,33 +81,58 @@ public class Siffer_FX extends Application {
         ValiNihe.setFont(Font.font(String.valueOf(BOLD), 20));
         ValiNihe.setTextFill(Paint.valueOf("WHITE"));
         ChoiceBox<Integer> cb = new ChoiceBox<Integer>(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
-        cb.getValue(); //choiceboxi vaartus
+
+        //tahestiku choicebox
+        Label Valitahestik = new Label("Vali tahestik või sisesta ise Alphabet lahtrisse");
+        Valitahestik.setFont(Font.font(String.valueOf(BOLD), 14));
+        Valitahestik.setTextFill(Paint.valueOf("WHITE"));
+        ChoiceBox<String> cb2 = new ChoiceBox<String>(FXCollections.observableArrayList("ABCDEFGHIJKLMNOPQRSTUVWXYZ","ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY","غضذخثتشقصفعسنملكيطحزوهدجبا","\n" +
+                "АБВГЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"));
+        cb2.getSelectionModel().selectFirst(); //default valib nimekirjast esimese
+
         //paigutame choiceboxi horisontaalselt
         layout.getChildren().add(cb);
         HBox choice = new HBox();
         choice.setSpacing(10);
-        choice.getChildren().addAll(ValiNihe, cb);
+        choice.getChildren().addAll(ValiNihe, cb,Valitahestik,cb2);
 
         FileChooser filechooser =new FileChooser();
 
-        layout.getChildren().addAll (choice, tekstiVali, sisestusTekst,tekstiValiSif, sisestusTekstSif, hbox);
+        layout.getChildren().addAll (choice, keha, hbox);
+
 
         //nupu tegevus
         sif.setOnAction(event -> {
             String sifreerimiseks = sisestusTekst.getText();
             int rot = cb.getValue();
-            sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot));
+            String valik = new String();
+            if(alphabetTekst.getText()!=null && !alphabetTekst.getText().isEmpty()){
+                valik=alphabetTekst.getText();
+            }else {
+                valik=cb2.getValue();
+            }
+            sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot, valik));
 
         });
+
         desif.setOnAction(event -> {
             String desifreerimiseks = sisestusTekst.getText();
             int rot = cb.getValue();
-            sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot));
+            String valik = new String();
+            if(alphabetTekst.getText()!=null && !alphabetTekst.getText().isEmpty()){
+                valik=alphabetTekst.getText();
+            }else{
+                valik=cb2.getValue();
+            }
+                String valitudTahestik =cb2.getValue();
+            sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot, valitudTahestik));
 
         });
+
         clear.setOnAction(event -> {
             sisestusTekstSif.clear();
         });
+
         clearSisestus.setOnAction(event -> {
             sisestusTekst.clear();
         });
@@ -146,4 +177,5 @@ public class Siffer_FX extends Application {
         } catch (IOException ex) {
             Logger.getLogger("faili ei ole");
         }
-    }}
+    }
+}

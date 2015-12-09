@@ -1,11 +1,9 @@
-package MMSiffer;
-
-import java.util.Scanner;
+package src.MMSiffer;
 
 /**
  * Created by Mario on 11/25/2015.
  */
-public class CaesarSiffer_consol {
+ /*public class CaesarSiffer_consol {
     public static void main(String[]args){
         Scanner sc=new Scanner(System.in);
         System.out.println("Kas Sifreerimiseks/desifreerimiseks");
@@ -25,3 +23,4 @@ public class CaesarSiffer_consol {
         }
     }
 }
+*/

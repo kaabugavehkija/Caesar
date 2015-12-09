@@ -1,11 +1,11 @@
-package MMSiffer;
+package src.MMSiffer;
 
 /**
  * Created by Mario on 11/29/2015.
  */
 public class Sifreerimine_Caesar {
-    public static String siffer(String sifreerimiseks, int nihe) {
-        String tahestik = "ABCDEFGHIJKLMNOPRSTUVõäöü";
+    public static String siffer(String sifreerimiseks, int nihe, String tahestik) {
+        //String tahestik = "ABCDEFGHIJKLMNOPRSTUVï¿½ï¿½ï¿½ï¿½";
         String sifreeritud = "";
 
         for (int i = 0; i < sifreerimiseks.length(); i++) {

@@ -1,11 +1,11 @@
-package MMSiffer;
+package src.MMSiffer;
 
 /**
  * Created by Mario on 11/29/2015.
  */
 public class Desifreerimine_Caesar {
-    public static String desiffer(String desifreerimiseks, int nihe) {
-        String tahestik = "ABCDEFGHIJKLMNOPRSTUVõäöü";
+    public static String desiffer(String desifreerimiseks, int nihe, String tahestik) {
+        //String tahestik = "ABCDEFGHIJKLMNOPRSTUVï¿½ï¿½ï¿½ï¿½";
         String desifreeritud = "";
 
         for (int i = 0; i < desifreerimiseks.length(); i++) {
