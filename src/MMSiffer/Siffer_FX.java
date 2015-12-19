@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,7 @@ public class Siffer_FX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Lava seadistamine
-        primaryStage.setTitle("Sifreerija/desifreerija");
+        primaryStage.setTitle("Sifreerija/Desifreerija");
         VBox layout = new VBox();
 
         //pealkiri keskele
@@ -39,12 +40,12 @@ public class Siffer_FX extends Application {
         layout.getChildren().add(bp);
 
         layout.setSpacing(5);
-        layout.setStyle("-fx-background-color:#336699;;");
+        layout.setStyle("-fx-background-color:#336699;");
         Scene scene = new Scene(layout, 750, 650);
 
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Caesar.jpg")));
         primaryStage.show();
-        //primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         //Visuaalid
         VBox keha = new VBox();
@@ -80,7 +81,8 @@ public class Siffer_FX extends Application {
         Label ValiNihe = new Label("Vali Nihe");
         ValiNihe.setFont(Font.font(String.valueOf(BOLD), 20));
         ValiNihe.setTextFill(Paint.valueOf("WHITE"));
-        ChoiceBox<Integer> cb = new ChoiceBox<Integer>(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+        ChoiceBox<Integer> cb = new ChoiceBox<Integer>(FXCollections.observableArrayList(0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+        cb.getSelectionModel().selectFirst(); //default valib nimekirjast esimese
 
         //tahestiku choicebox
         Label Valitahestik = new Label("Vali tahestik või sisesta ise Alphabet lahtrisse");
@@ -103,29 +105,55 @@ public class Siffer_FX extends Application {
 
         //nupu tegevus
         sif.setOnAction(event -> {
-            String sifreerimiseks = sisestusTekst.getText();
-            int rot = cb.getValue();
-            String valik = new String();
-            if(alphabetTekst.getText()!=null && !alphabetTekst.getText().isEmpty()){
-                valik=alphabetTekst.getText();
-            }else {
-                valik=cb2.getValue();
+            if (sisestusTekstSif.getText().isEmpty()) {
+                String sifreerimiseks = sisestusTekst.getText();
+                int rot = cb.getValue();
+                String valik = new String();
+                if (alphabetTekst.getText() != null && !alphabetTekst.getText().isEmpty()) {
+                    valik = alphabetTekst.getText().toUpperCase();
+                } else {
+                    valik = cb2.getValue();
+                }
+                sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot,valik));
+            }else{
+                sisestusTekstSif.clear(); //et ka peale clearimist edasi toimetaks
+                String sifreerimiseks = sisestusTekst.getText();
+                int rot = cb.getValue();
+                String valik = new String();
+                if (alphabetTekst.getText() != null && !alphabetTekst.getText().isEmpty()) {
+                    valik = alphabetTekst.getText().toUpperCase();
+                } else {
+                    valik = cb2.getValue();
+                }
+                sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot, valik));
             }
-            sisestusTekstSif.appendText(Sifreerimine_Caesar.siffer(sifreerimiseks, rot, valik));
 
         });
 
         desif.setOnAction(event -> {
-            String desifreerimiseks = sisestusTekst.getText();
-            int rot = cb.getValue();
-            String valik = new String();
-            if(alphabetTekst.getText()!=null && !alphabetTekst.getText().isEmpty()){
-                valik=alphabetTekst.getText();
-            }else{
-                valik=cb2.getValue();
+            if (sisestusTekstSif.getText().isEmpty()){
+                String desifreerimiseks = sisestusTekst.getText();
+                int rot = cb.getValue();
+                String valik = new String();
+                if(alphabetTekst.getText()!= null && !alphabetTekst.getText().isEmpty()){
+                    valik=alphabetTekst.getText().toUpperCase();
+                }else{
+                    valik = cb2.getValue();
+                }
+                sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot, valik));
+            }else {
+                sisestusTekstSif.clear();
+                String desifreerimiseks = sisestusTekst.getText();
+                int rot = cb.getValue();
+                String valik = new String();
+                if(alphabetTekst.getText()!=null && !alphabetTekst.getText().isEmpty()){
+                    valik=alphabetTekst.getText().toUpperCase();
+                }else{
+                    valik = cb2.getValue();
+                }
+                sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot, valik));
+
             }
-                String valitudTahestik =cb2.getValue();
-            sisestusTekstSif.appendText(Desifreerimine_Caesar.desiffer(desifreerimiseks, rot, valitudTahestik));
 
         });
 
@@ -137,7 +165,10 @@ public class Siffer_FX extends Application {
             sisestusTekst.clear();
         });
         browse.setOnAction(event -> {
-            File file = new FileChooser().showOpenDialog(primaryStage);
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(primaryStage);
 
             String line = null;
             try {
@@ -168,14 +199,14 @@ public class Siffer_FX extends Application {
 
         });
         //http://java-buddy.blogspot.com.ee/2015/03/javafx-example-save-textarea-to-file.html
-    }private void SaveFile(String content, File file){
-        try {
-            FileWriter fileWriter;
-            fileWriter = new FileWriter(file);
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger("faili ei ole");
+        }private void SaveFile(String content, File file){
+            try {
+                FileWriter fileWriter;
+                fileWriter = new FileWriter(file);
+                fileWriter.write(content);
+                fileWriter.close();
+            }  catch (IOException ex) {
+                Logger.getLogger(" ");
         }
     }
 }

@@ -11,6 +11,9 @@ public class Sifreerimine_Caesar {
         for (int i = 0; i < sifreerimiseks.length(); i++) {
             int asukohtTahestikus = tahestik.indexOf(Character.toUpperCase(sifreerimiseks.charAt(i)));
             int paljuNihutame = (asukohtTahestikus + nihe) % tahestik.length();
+            if (paljuNihutame<0){
+                paljuNihutame = tahestik.length()+paljuNihutame;
+            }
             char uusVaartus = tahestik.charAt(paljuNihutame);
             if (Character.isDigit(sifreerimiseks.charAt(i))) {
                 sifreeritud += sifreerimiseks.charAt(i);
