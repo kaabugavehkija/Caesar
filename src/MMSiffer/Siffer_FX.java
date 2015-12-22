@@ -46,7 +46,6 @@ public class Siffer_FX extends Application {
         Scene scene = new Scene(layout, 750, 650);
 
         primaryStage.setScene(scene);
-        
         //http://stackoverflow.com/questions/20094620/set-icon-on-stage-in-javafx
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Caesar.jpg")));
         primaryStage.show();
@@ -62,7 +61,6 @@ public class Siffer_FX extends Application {
                 we.consume();
             }
         });
-
 
         //Visuaalid
         VBox keha = new VBox();
@@ -146,6 +144,7 @@ public class Siffer_FX extends Application {
             }
 
         });
+        new LoginScreen();
 
         desif.setOnAction(event -> {
             if (sisestusTekstSif.getText().isEmpty()) {
