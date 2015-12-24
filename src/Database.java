@@ -1,13 +1,13 @@
-package src.MMSiffer;
+package src;
 
 import java.sql.*;
 import java.util.HashMap;
 
-public class Andmebaas {
+public class Database {
     Connection conn = null;
 
     // Constructor, ehk meetod mis käivitub kohe objekti välja kutsumisel
-    public Andmebaas() {
+    public Database() {
         looYhendus();
         looTabel();
     }

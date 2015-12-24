@@ -1,4 +1,4 @@
-package src.MMSiffer;
+package src;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,7 +43,7 @@ public class UserDetails {
         Scene scene = new Scene(tile);
         stage.setScene(scene);
 
-        Andmebaas a = new Andmebaas();
+        Database a = new Database();
         andmed = a.getUser(kasutajanimi);
 
         TextField kasutajanimiField = new TextField(andmed.get("username"));

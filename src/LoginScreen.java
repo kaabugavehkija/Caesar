@@ -1,4 +1,4 @@
-package src.MMSiffer;
+package src;
 
 
 import javafx.scene.Scene;
@@ -35,7 +35,8 @@ public class LoginScreen {
         parool = new PasswordField();
         loginButton = new Button("logi sisse");
         registerButton = new Button("registreeri");
-        vbox.getChildren().addAll(l1, kasutajanimi, l2, parool, loginButton, registerButton);
+        Button anonymous = new Button("anonymous");
+        vbox.getChildren().addAll(l1, kasutajanimi, l2, parool, loginButton, registerButton, anonymous);
 
         stage.setScene(scene);
         stage.show();
@@ -45,7 +46,7 @@ public class LoginScreen {
         loginButton.setOnAction(event -> {
             String nimi = kasutajanimi.getText();
             String p = parool.getText();
-            Andmebaas a = new Andmebaas();
+            Database a = new Database();
             boolean result = a.login(nimi, p);
             a.sulgeYhendus();
             if (result) {
@@ -59,7 +60,7 @@ public class LoginScreen {
         registerButton.setOnAction(event -> {
             String nimi = kasutajanimi.getText();
             String p = parool.getText();
-            Andmebaas a = new Andmebaas();
+            Database a = new Database();
             a.registreeriKasutaja(nimi, p);
             a.sulgeYhendus();
         });
