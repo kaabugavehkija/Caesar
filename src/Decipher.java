@@ -1,5 +1,7 @@
 package src;
 
+import javax.swing.*;
+
 /**
  * Created by Mario on 11/29/2015.
  */
@@ -15,12 +17,16 @@ public class Decipher {
                 newLocation = alphabet.length()+newLocation;
             }
             char newChar = alphabet.charAt(newLocation);
-            if (Character.isDigit(ciphered.charAt(i))) {
+             if (Character.isLetter(ciphered.charAt(i)) && !alphabet.contains(Character.toString(Character.toUpperCase(ciphered.charAt(i))))){
+                JOptionPane.showMessageDialog(new JFrame(), "Check spelling or change alphabet");
+                 deciphered = " ";
+                break;
+            } else if (Character.isLetter(ciphered.charAt(i))) {
+                deciphered += newChar;
+            } else if (Character.isDigit(ciphered.charAt(i))) {
                 deciphered += ciphered.charAt(i);
             } else if (!Character.isLetterOrDigit(ciphered.charAt(i))) {
                 deciphered += ciphered.charAt(i);
-            } else if (Character.isLetter(ciphered.charAt(i))) {
-                deciphered += newChar;
             }
         }
         return deciphered;

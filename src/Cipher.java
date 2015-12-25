@@ -1,5 +1,7 @@
 package src;
 
+import javax.swing.*;
+
 /**
  * Created by Mario on 11/29/2015.
  */
@@ -15,12 +17,16 @@ public class Cipher {
                 newLocation = alphabet.length()+newLocation;
             }
             char newChar = alphabet.charAt(newLocation);
-            if (Character.isDigit(plainText.charAt(i))) {
+            if (Character.isLetter(plainText.charAt(i)) && !alphabet.contains(Character.toString(Character.toUpperCase(plainText.charAt(i))))) {
+                JOptionPane.showMessageDialog(new JFrame(), "Check spelling or change alphabet");
+                chiphered = " ";
+                break;
+            } else if (Character.isLetter(plainText.charAt(i))) {
+                chiphered += newChar;
+            } else if (Character.isDigit(plainText.charAt(i))) {
                 chiphered += plainText.charAt(i);
             } else if (!Character.isLetterOrDigit(plainText.charAt(i))) {
                 chiphered += plainText.charAt(i);
-            } else if (Character.isLetter(plainText.charAt(i))) {
-                chiphered += newChar;
             }
         }
         return chiphered;
