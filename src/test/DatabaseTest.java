@@ -17,6 +17,7 @@ public class DatabaseTest {
         Database database = new Database();
         HashMap user = database.getUser("test");
         System.out.println("password=" + user.get("password"));
+
     }
 
     @Test
