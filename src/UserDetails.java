@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 
 /**
- * Created by krister on 20.11.15.
+ * UserDetails class is mainly based on KristerV solution:
+ * https://github.com/KristerV/javaHarjutused/blob/lahendused/src/teema3/SQL_Login/UserDetails.java
+ * Some additional improvements have been added.
  */
 public class UserDetails {
     private String Username;

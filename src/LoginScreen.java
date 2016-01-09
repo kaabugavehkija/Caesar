@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 /**
- * Created by krister on 20.11.15.
+ * LoginScreen class is mainly based on KristerV solution:
+ * https://github.com/KristerV/javaHarjutused/blob/lahendused/src/teema3/SQL_Login/LoginScreen.java
+ * Some additional improvements have been added.
  */
 public class LoginScreen {
     TextField Username;
