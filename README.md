@@ -1,19 +1,16 @@
 # Caesar
-Java projekt.
-i200 projekt M&M's šifreerimine.
+Aine i200 java projekt M&M's šifreerimine.
 Autorid Mikk Erlenheim ja Mario Mustasaar.
-Projekti idee on luua lahendus, mis šifreeriks ja dešifreeriks etteantud teksti Caesari šifri abil (ja võib-olla ka Atbashi šifri abil).
+Projekti ideeks oli luua lahendus, mis šifreeriks ja dešifreeriks etteantud teksti Caesari šifri abil.
 
-Mida tahame teha:
-1) Sisendteksti sisestamine tekstiväljale (kui on sümbolid (!, ?, ;, , ,) või numbrid, siis  peab jääma sama sümbol või number)
-2) Šifreeritud tekst tekstiväljale
-3) Sisendteksti failist lugemine
-4) Šifreeritud teksti faili kirjutamine
-5) Rippmenüüst tähestiku (1. Eesti tähestik, 2. Inglise tähestik, 3. Kirillitsa?) ja ROTi valimine (võib olla nii negatiivne kui positiivne, = tähestiku pikkus-1)
-6) Noobli tausta lisamine (näiteks Matrixi waterfall:  http://stackoverflow.com/questions/4710693/java-falling-matrix-code-like-the-movie-continued)
-7) Heli lisamine (Heli tutorial: https://docs.oracle.com/javase/tutorial/sound/, .waw formatiga heli lisamine: Heli lisamine http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java)
-Heliks võiks olla näiteks Final Countdowni tunnusmeloodia
-8) Kasutajakonto loomine
-9) Kasutajakontoga seotud tegevused
-10) Dünaamilise tabeli tekitamine (ajalugu salvestatatakse tabelisse, mida on kasutajal hiljem võimalik näha)
-11) Kaitse algaja häkkeri vastu (kasutajanimi ja parool peavad olema piiratud pikkusega ning kasutajanimi ja parool ei tohi kumbki olla sql injection kood, samuti ei tohi olla sisestav tekst sql injectioni kood)
+Lähemalt tehtud lahendusest:
+Sifreerimisel on võimalik valida drop-down listist nelja tähestiku vahel (eesti, inglise, araabia tähestiku ning kirillitsa vahel). Eraldi on võimalik ka käsitsi sisestada omale meelepärane tähestik, mida soovitakse šifreerimisel või dešifreerimisel kasutada. Lisaks tähestikule on võimalik drop-down listist valida meelepärane nihe (ühest kolmeteistkümneni), mida soovitakse kasutada.
+
+"Plain text" lahtrisse tuleb sisestada tekst, mida soovitakse šifreerida või dešifreerida. Toimingu tegemiseks tuleb vajutada "Ciphered/deciphered text" lahtri all olevatele nuppudele "Cipher" või "Decipher". Nupp "Clear result" tühjendab lahtri "Ciphered/deciphered text" sisu ning nupp "Clear plain text" tühjendab omakorda lahtri "Plain text" (sisestatud teksti) sisu.
+
+Šifreeritud teksti on võimalik salvestada formaadis .txt nupuga "Save to file". Salvestatud teksti on võimalik hiljem uuesti nupuga "Choose file" sisse lugeda. Teades šifreerimisel kasutatud tähestikku ning nihet on võimalik teksti hiljem uuesti dešifreerida. See võimaldab kasutajatel jagada omavahel salajast informatsiooni (šifreeritud kujul teksti).
+
+Šifri akna sulgemisel (x-i vajutamisel) küsitakse kasutajalt üle, kas soovitakse šifrit sulgeda.
+
+Võimalikud edasiarendused:
+*Kasutajakonto loomine (koostada kasutajate kohta andmebaas) ning lisada võimalus kasutajatel salvestada šifreeritud või dešifreeritud teksti andmebaasi ning hiljem uuesti kuvada. Andmebaasi lisamisel tuleks tagada ka kaitse algaja häkkeri vastu (kasutajanimi ja parool peavad olema piiratud pikkusega + sql injectioni vastu peab olema andmebaas kaitstud).
