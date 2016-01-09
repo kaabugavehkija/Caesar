@@ -6,7 +6,7 @@ import javax.swing.*;
  * Created by Mario on 11/29/2015.
  */
 public class Decipher {
-    public static String decipher(String ciphered, int key, String alphabet) {
+    public static String decipher(String ciphered, int key, String alphabet) throws CipherException {
         //Deciphered text
         String deciphered = "";
 
@@ -18,9 +18,7 @@ public class Decipher {
             }
             char newChar = alphabet.charAt(newLocation);
              if (Character.isLetter(ciphered.charAt(i)) && !alphabet.contains(Character.toString(Character.toUpperCase(ciphered.charAt(i))))){
-                JOptionPane.showMessageDialog(new JFrame(), "Check spelling or change alphabet");
-                 deciphered = " ";
-                break;
+                 throw new CipherException("test");
             } else if (Character.isLetter(ciphered.charAt(i))) {
                 deciphered += newChar;
             } else if (Character.isDigit(ciphered.charAt(i))) {

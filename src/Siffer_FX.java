@@ -131,7 +131,16 @@ public class Siffer_FX extends Application {
                 } else {
                     alphabetChoice = alphabetCb.getValue();
                 }
-                textCipheredDeciphered.appendText(Cipher.cipher(textCipher, key, alphabetChoice));
+                try {
+                    textCipheredDeciphered.appendText(Cipher.cipher(textCipher, key, alphabetChoice));
+                } catch (CipherException e) {
+                    Alert b = new Alert(Alert.AlertType.INFORMATION);
+                    b.setTitle("Information");
+                    b.setHeaderText("Check spelling or change alphabet");
+                    Optional<ButtonType> closeResponse = b.showAndWait();
+                    if (!ButtonType.OK.equals(closeResponse.get()))
+                        e.getMessage();;
+                }
             } else {
                 textCipheredDeciphered.clear(); //to function after clear
                 String textCipher = plainTextArea.getText();
@@ -142,7 +151,11 @@ public class Siffer_FX extends Application {
                 } else {
                     alphabetChoice = alphabetCb.getValue();
                 }
-                textCipheredDeciphered.appendText(Cipher.cipher(textCipher, key, alphabetChoice));
+                try {
+                    textCipheredDeciphered.appendText(Cipher.cipher(textCipher, key, alphabetChoice));
+                } catch (CipherException e) {
+                    e.printStackTrace();
+                }
             }
 
         });
@@ -157,7 +170,16 @@ public class Siffer_FX extends Application {
                 } else {
                     alphabetChoice = alphabetCb.getValue();
                 }
-                textCipheredDeciphered.appendText(Decipher.decipher(textDeciph, key, alphabetChoice));
+                try {
+                    textCipheredDeciphered.appendText(Decipher.decipher(textDeciph, key, alphabetChoice));
+                } catch (CipherException e) {
+                    Alert b = new Alert(Alert.AlertType.INFORMATION);
+                    b.setTitle("Information");
+                    b.setHeaderText("Check spelling or change alphabet");
+                    Optional<ButtonType> closeResponse = b.showAndWait();
+                    if (!ButtonType.OK.equals(closeResponse.get()))
+                    e.getMessage();
+                }
             } else {
                 textCipheredDeciphered.clear();
                 String textDeciph = plainTextArea.getText();
@@ -168,7 +190,11 @@ public class Siffer_FX extends Application {
                 } else {
                     alphabetChoice = alphabetCb.getValue();
                 }
-                textCipheredDeciphered.appendText(Decipher.decipher(textDeciph, key, alphabetChoice));
+                try {
+                    textCipheredDeciphered.appendText(Decipher.decipher(textDeciph, key, alphabetChoice));
+                } catch (CipherException e) {
+                    e.printStackTrace();
+                }
 
             }
 
