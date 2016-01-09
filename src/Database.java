@@ -6,39 +6,39 @@ import java.util.HashMap;
 public class Database {
     Connection conn = null;
 
-    // Constructor, ehk meetod mis käivitub kohe objekti välja kutsumisel
+    // A constructor or a block of code that is similar to a method that’s called when an instance of an object is created.
     public Database() {
         looYhendus();
         looTabel();
     }
 
-    // Et andmebaasi kasutada peame sellega esiteks ühenduse looma
+    // To use database, we have to make a connection first
     private void looYhendus() {
         try {
-            Class.forName("org.sqlite.JDBC");                          // Lae draiver sqlite.jar failist
-            conn = DriverManager.getConnection("jdbc:sqlite:test.db"); // loo ühendus andmebaasi failiga
-        } catch ( Exception e ) {                                      // püüa kinni võimalikud errorid
+            Class.forName("org.sqlite.JDBC");                          // Load driver from sqlite.jar file
+            conn = DriverManager.getConnection("jdbc:sqlite:test.db"); // Mae connection with database file
+        } catch ( Exception e ) {                                      // Catch possible errors
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
-        System.out.println("Opened database successfully");            // lihtsalt meie enda jaoks teade
+        System.out.println("Opened database successfully");            // Confirmation text about successful connection
     }
 
-    // Et andmebaasist kasu oleks, loome uue tabeli. See on nagu uus 'sheet' excelis.
+    // Creating a new table, which concept is similar to what 'sheet' is in excel.
     public void looTabel() {
-        // Käsk ise on CREATE TABLE ja sulgude vahel on kõik tulbad, mida tahan, et tabel hoiaks.
-        String sql = "CREATE TABLE IF NOT EXISTS USERS (ID INT AUTO_INCREMENT, USERNAME TEXT, " + // jätkub järgmisel real
+        // We'll use command CREATE TABLE and between the parentheses are all columns, which we want the table to hold.
+        String sql = "CREATE TABLE IF NOT EXISTS USERS (ID INT AUTO_INCREMENT, USERNAME TEXT, " + // Code continues
                 "PASSWORD TEXT, FULLNAME TEXT, NUMBER INT, ADDRESS TEXT);";
         teostaAndmebaasiMuudatus(sql);
     }
 
-    // Andmebaasi muudatused ei tagasta väärtusi (erinevalt
-    // päringutest) ja on lihtne eraldi meetodi tuua.
+    // The changes in database don't return values (unlike to queries)
+    // päringutest) and are easy to put in a separate method.
     private void teostaAndmebaasiMuudatus(String sql) {
         try {
-            // Statement objekt on vajalik, et SQL_Login käsku käivitada
+            // Statement object is necessary for starting SQL_Login command.
             Statement stat = conn.createStatement();
             stat.executeUpdate(sql);
-            stat.close(); // Statement tuleb samuti kinni panna nagu ka Connection.
+            stat.close(); // Statement has to be closed similarly to Connection.
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,17 +46,17 @@ public class Database {
 
     private void teostaAndmebaasiMuudatusPrepared(PreparedStatement preparedStatement) {
         try {
-            // Statement objekt on vajalik, et SQL_Login käsku käivitada
+            // Statement object is necessary for starting SQL_Login command.
             preparedStatement.executeUpdate();
-            preparedStatement.close(); // Statement tuleb samuti kinni panna nagu ka Connection.
+            preparedStatement.close(); // Statement has to be closed similarly to Connection.
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void registreeriKasutaja(String username, String password) {
-        // Andmete sisestamiseks on käsk INSERT. Esimestes sulgudes on tulabad KUHU salvestada,
-        // teistes sulgudes VALUES() on MIDA salvestada.
+        // For inserting the data we'll use command INSERT. Between the first paratheses are the columns, WHERE we want
+        //  to save and between the second parantheses VALUES() are WHAT we want to save.
         //String sql = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES ('"+username+"','"+password+"')";
         String sql = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (?, ?)";
         PreparedStatement stat = null;
@@ -75,12 +75,11 @@ public class Database {
             String sql = "SELECT * FROM USERS WHERE USERNAME = ? LIMIT 1;";
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, username);
-            // SELECT on nagu excelis hiirega "selekteeriks" mingeid kaste. SQLis tähendab konkreetselt,
-            // et milliste tulpade infot soovid kätte saada. WHERE'ga käsed välja võtta ainult tingimustele
-            // vastavad väljad.
+            // SELECT is similar to selecting cells withc mouse in excel. In SQL it mmeans, which columns data we want
+            // to retrieve. WHERE are the conditions, which have to apply to the retrieved values.
 
 
-            // Kuna tegu on päringuga siis käsuks on executeQuery ja ta tagastab andme objekti ResultSet.
+            // Because this is a query, then we have to use command executeQuery, which returns data object ResultSet.
             ResultSet rs = stat.executeQuery();
             boolean isValid  = false;
             while (rs.next()){
@@ -89,9 +88,9 @@ public class Database {
                 break;
             }
 
-            // Kui Query andmeid ei tagastanud (päring ei toonud tulemusi) siis rs-i kasutada ei saa.
-            // Seepärast, kui kasutajat ei eksisteeri tuleb lihtsalt error ja "return" käsuni ei jõutagi.
-            // Aga jõutakse lõpu "return false" käsuni küll.
+            // If Query didn't return any data (query finished without results), then it's not possible to use rs.
+            // When the user doesn't exist, then it will give an error and "return" command is not used.
+            // But "return false" is still executed.
 
             rs.close();
             stat.close();
@@ -103,8 +102,8 @@ public class Database {
         return false;
     }
 
-    // Kui programmis avad ainult ühendusi ja ühtegi ei sulge siis see kulutab arvuti (serveri) ressursse.
-    // Üsna kiiresti võib masina kokku jooksutada.
+    // If you only open connections, but don't close any, then it uses a lot of computer's (server's) resource.
+    // This way you may quite easily overload the machine.
     public void sulgeYhendus() {
         try {
             conn.close();
@@ -114,17 +113,18 @@ public class Database {
         System.out.println("Ühendus suletud");
     }
 
-    // Kasutaja andmete päring.
+    // User's data query.
     public HashMap getUser(String kasutajanimi) {
         HashMap andmed = new HashMap();
         try {
-            String sql = "SELECT * FROM USERS WHERE USERNAME = ? LIMIT 1;"; // LIMIT piirab tulemuste arvu.
+            String sql = "SELECT * FROM USERS WHERE USERNAME = ? LIMIT 1;"; // LIMIT restricts the number of results.
             PreparedStatement stat = conn.prepareStatement(sql);
             stat.setString(1, kasutajanimi);
             ResultSet rs = stat.executeQuery();
-            // Kui stat.executeQuery() toob tagasi tühja tulemuse, siis rs'i kasutada ei saa.
+            // If stat.executeQuery() didn't return any data (query finished without results),
+            // then it's not possible to use rs..
 
-            // Kui oleks mitu rida andmeid, peaks tsükliga lahendama while (rs.next()) {}
+            // If there would be multiple number of rows with data, then cycle should be used while (rs.next()) {}
             while(rs.next()){
                 andmed.put("username", rs.getString("username"));
                 andmed.put("password", rs.getString("password"));

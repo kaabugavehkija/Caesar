@@ -25,7 +25,7 @@ import static javafx.scene.text.FontWeight.BOLD;
  * Created by Mario on 11/21/2015.
  */
 
-public class Siffer_FX extends Application {
+public class Cipher_FX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Stage setup
