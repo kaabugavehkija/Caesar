@@ -14,12 +14,15 @@ import java.util.HashMap;
  */
 public class UserDetails {
     private String kasutajanimi;
-    private Stage stage = new Stage();
+    private Stage stage = null;
     private Button updateButton;
     private Button logoutButton;
     private HashMap<String, String> andmed;
+    Scene nextScene = null;
 
-    public UserDetails(String kasutajaSisse) {
+    public UserDetails(String kasutajaSisse, Stage stage, Scene nextScene) {
+        this.stage = stage;
+        this.nextScene = nextScene;
         kasutajanimi = kasutajaSisse;
         setupStage();
         setupUpdate();
@@ -29,7 +32,7 @@ public class UserDetails {
     private void setupLogout() {
         logoutButton.setOnAction(event -> {
             stage.close();
-            new LoginScreen();
+            new LoginScreen(stage, nextScene);
         });
     }
 
@@ -50,8 +53,7 @@ public class UserDetails {
         PasswordField paroolField = new PasswordField();
         paroolField.setText(andmed.get("password"));
         TextField fullnameField = new TextField(andmed.get("fullname"));
-        TextField numberField = new TextField(andmed.get("number"));
-        TextField aadressField = new TextField(andmed.get("address"));
+
         updateButton = new Button("Uuenda andmeid");
 
         updateButton.setOnAction(event -> {
@@ -59,22 +61,19 @@ public class UserDetails {
             uuedAndmed.put("username", kasutajanimiField.getText());
             uuedAndmed.put("password", paroolField.getText());
             uuedAndmed.put("fullname", fullnameField.getText());
-            uuedAndmed.put("number", numberField.getText());
-            uuedAndmed.put("address", aadressField.getText());
 
             a.uuendaKasutajaAndmeid(uuedAndmed);
             a.sulgeYhendus();
             stage.close();
-            new UserDetails(kasutajanimiField.getText());
+            new UserDetails(kasutajanimiField.getText(), stage, nextScene);
         });
 
         Label l2 = new Label("Kasutajanimi");
         Label l3 = new Label("Parool");
         Label l4 = new Label("Päris nimi");
-        Label l5 = new Label("Telefoni number");
-        Label l6 = new Label("Aadress");
+
         logoutButton = new Button("Logi välja");
-        tile.getChildren().addAll(l2, kasutajanimiField, l3, paroolField, l4, fullnameField, l5, numberField, l6, aadressField, logoutButton, updateButton);
+        tile.getChildren().addAll(l2, kasutajanimiField, l3, paroolField, l4, fullnameField, logoutButton, updateButton);
 
         stage.show();
     }

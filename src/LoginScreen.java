@@ -2,12 +2,11 @@ package src;
 
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 /**
  * Created by krister on 20.11.15.
@@ -17,12 +16,17 @@ public class LoginScreen {
     PasswordField parool;
     Button loginButton;
     Button registerButton;
-    Stage stage = new Stage();
+    Button anonymousButton;
+    Stage stage = null;
+    Scene nextScene = null;
 
-    LoginScreen() {
+    LoginScreen(Stage stage, Scene nextScene) {
+        this.stage = stage;
+        this.nextScene = nextScene;
         setupScene();
         setupLogin();
         setupRegister();
+        setupAnonymous();
     }
 
     private void setupScene() {
@@ -35,8 +39,8 @@ public class LoginScreen {
         parool = new PasswordField();
         loginButton = new Button("logi sisse");
         registerButton = new Button("registreeri");
-        Button anonymous = new Button("anonymous");
-        vbox.getChildren().addAll(l1, kasutajanimi, l2, parool, loginButton, registerButton, anonymous);
+        anonymousButton = new Button("anonymous");
+        vbox.getChildren().addAll(l1, kasutajanimi, l2, parool, loginButton, registerButton, anonymousButton);
 
         stage.setScene(scene);
         stage.show();
@@ -46,12 +50,29 @@ public class LoginScreen {
         loginButton.setOnAction(event -> {
             String nimi = kasutajanimi.getText();
             String p = parool.getText();
+            if (nimi.equals("") || p.equals("")){
+                Alert error = new Alert(Alert.AlertType.INFORMATION);
+                error.setTitle("Error");
+                error.setHeaderText("Empty username or password");
+                Optional<ButtonType> closeResponse = error.showAndWait();
+                if (!ButtonType.OK.equals(closeResponse.get())){
+                    error.getHeaderText();
+                    return;
+                }
+            }
             Database a = new Database();
             boolean result = a.login(nimi, p);
             a.sulgeYhendus();
             if (result) {
-                UserDetails ud = new UserDetails(nimi);
-                stage.close();
+                stage.setScene(nextScene);
+            }else {
+                Alert error = new Alert(Alert.AlertType.INFORMATION);
+                error.setTitle("Error");
+                error.setHeaderText("Invalid username or password");
+                Optional<ButtonType> closeResponse = error.showAndWait();
+                if (!ButtonType.OK.equals(closeResponse.get())){
+                    error.getHeaderText();
+                }
             }
         });
     }
@@ -63,6 +84,12 @@ public class LoginScreen {
             Database a = new Database();
             a.registreeriKasutaja(nimi, p);
             a.sulgeYhendus();
+        });
+    }
+
+    private void setupAnonymous(){
+        anonymousButton.setOnAction(event -> {
+            stage.setScene(nextScene);
         });
     }
 }

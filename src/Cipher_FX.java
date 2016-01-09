@@ -45,7 +45,10 @@ public class Cipher_FX extends Application {
         layout.setStyle("-fx-background-color:#336699;");
         Scene scene = new Scene(layout, 750, 650);
 
-        primaryStage.setScene(scene);
+        LoginScreen loginScreen = new LoginScreen(primaryStage, scene);
+
+
+        //primaryStage.setScene(scene);
 
         //http://stackoverflow.com/questions/20094620/set-icon-on-stage-in-javafx
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("Caesar.jpg")));
@@ -139,7 +142,7 @@ public class Cipher_FX extends Application {
                     b.setHeaderText("Check spelling or change alphabet");
                     Optional<ButtonType> closeResponse = b.showAndWait();
                     if (!ButtonType.OK.equals(closeResponse.get()))
-                        e.getMessage();;
+                        e.getMessage();
                 }
             } else {
                 textCipheredDeciphered.clear(); //to function after clear

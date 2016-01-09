@@ -16,7 +16,7 @@ public class Database {
     private void looYhendus() {
         try {
             Class.forName("org.sqlite.JDBC");                          // Load driver from sqlite.jar file
-            conn = DriverManager.getConnection("jdbc:sqlite:test.db"); // Mae connection with database file
+            conn = DriverManager.getConnection("jdbc:sqlite:test.db"); // Make connection with database file
         } catch ( Exception e ) {                                      // Catch possible errors
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         }
