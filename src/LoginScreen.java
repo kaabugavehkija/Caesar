@@ -12,8 +12,8 @@ import java.util.Optional;
  * Created by krister on 20.11.15.
  */
 public class LoginScreen {
-    TextField kasutajanimi;
-    PasswordField parool;
+    TextField Username;
+    PasswordField Password;
     Button loginButton;
     Button registerButton;
     Button anonymousButton;
@@ -33,14 +33,14 @@ public class LoginScreen {
         VBox vbox = new VBox();
         Scene scene = new Scene(vbox);
 
-        Label l1 = new Label("Kasutajanimi");
-        kasutajanimi = new TextField();
-        Label l2 = new Label("Parool");
-        parool = new PasswordField();
-        loginButton = new Button("logi sisse");
-        registerButton = new Button("registreeri");
-        anonymousButton = new Button("anonymous");
-        vbox.getChildren().addAll(l1, kasutajanimi, l2, parool, loginButton, registerButton, anonymousButton);
+        Label l1 = new Label("Username");
+        Username = new TextField();
+        Label l2 = new Label("Password");
+        Password = new PasswordField();
+        loginButton = new Button("Log in");
+        registerButton = new Button("Register");
+        anonymousButton = new Button("Anonymous");
+        vbox.getChildren().addAll(l1, Username, l2, Password, loginButton, registerButton, anonymousButton);
 
         stage.setScene(scene);
         stage.show();
@@ -48,8 +48,8 @@ public class LoginScreen {
 
     private void setupLogin() {
         loginButton.setOnAction(event -> {
-            String nimi = kasutajanimi.getText();
-            String p = parool.getText();
+            String nimi = Username.getText();
+            String p = Password.getText();
             if (nimi.equals("") || p.equals("")){
                 Alert error = new Alert(Alert.AlertType.INFORMATION);
                 error.setTitle("Error");
@@ -79,8 +79,8 @@ public class LoginScreen {
 
     private void setupRegister() {
         registerButton.setOnAction(event -> {
-            String nimi = kasutajanimi.getText();
-            String p = parool.getText();
+            String nimi = Username.getText();
+            String p = Password.getText();
             Database a = new Database();
             a.registreeriKasutaja(nimi, p);
             a.sulgeYhendus();

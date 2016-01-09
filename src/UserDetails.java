@@ -13,7 +13,7 @@ import java.util.HashMap;
  * Created by krister on 20.11.15.
  */
 public class UserDetails {
-    private String kasutajanimi;
+    private String Username;
     private Stage stage = null;
     private Button updateButton;
     private Button logoutButton;
@@ -23,7 +23,7 @@ public class UserDetails {
     public UserDetails(String kasutajaSisse, Stage stage, Scene nextScene) {
         this.stage = stage;
         this.nextScene = nextScene;
-        kasutajanimi = kasutajaSisse;
+        Username = kasutajaSisse;
         setupStage();
         setupUpdate();
         setupLogout();
@@ -47,14 +47,14 @@ public class UserDetails {
         stage.setScene(scene);
 
         Database a = new Database();
-        andmed = a.getUser(kasutajanimi);
+        andmed = a.getUser(Username);
 
         TextField kasutajanimiField = new TextField(andmed.get("username"));
         PasswordField paroolField = new PasswordField();
         paroolField.setText(andmed.get("password"));
         TextField fullnameField = new TextField(andmed.get("fullname"));
 
-        updateButton = new Button("Uuenda andmeid");
+        updateButton = new Button("Renew data");
 
         updateButton.setOnAction(event -> {
             HashMap<String, String> uuedAndmed = new HashMap<String, String>();
@@ -68,11 +68,11 @@ public class UserDetails {
             new UserDetails(kasutajanimiField.getText(), stage, nextScene);
         });
 
-        Label l2 = new Label("Kasutajanimi");
-        Label l3 = new Label("Parool");
-        Label l4 = new Label("Päris nimi");
+        Label l2 = new Label("Username");
+        Label l3 = new Label("Password");
+        Label l4 = new Label("Real name");
 
-        logoutButton = new Button("Logi välja");
+        logoutButton = new Button("Log out");
         tile.getChildren().addAll(l2, kasutajanimiField, l3, paroolField, l4, fullnameField, logoutButton, updateButton);
 
         stage.show();

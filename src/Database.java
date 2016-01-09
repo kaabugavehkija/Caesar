@@ -110,7 +110,7 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Ühendus suletud");
+        System.out.println("Connection closed");
     }
 
     // User's data query.
